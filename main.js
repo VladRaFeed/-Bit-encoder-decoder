@@ -118,4 +118,128 @@ const Coder = (num) => {
     return newBitNum;
 }
 
-BitCoder(data);
+
+
+// BitCoder(data);
+
+
+const bitData = [
+"0xEE",
+"0x0",
+"0x10E",
+"0x0",
+"0x20096D",
+"0x0",
+"0x0",
+"0xEE",
+"0x0",
+"0x106",
+"0x0",
+"0x1FA5B7",
+"0x0",
+"0x0",
+"0xF2",
+"0x0",
+"0x13C",
+"0x0",
+"0x27A0A0",
+"0x0",
+"0x1",
+"0x27"
+]
+
+const BitDeCoder = (data) => {
+    const deCodeNums = []
+    let i = 0;
+
+    for (const element of data) {
+        // console.log(element)
+        const num = DeCoder(element);
+        deCodeNums.push(num);
+    }
+
+    const object = {
+        "V1": null,
+        "A1": null,
+        "W1": null,
+        "rW1": null,
+        "Wh1": null,
+        "rWh1": null,
+        "PF1": null,
+        "V2": null,
+        "A2": null,
+        "W2": null,
+        "rW2": null,
+        "Wh2": null,
+        "rWh2": null,
+        "PF2": null,
+        "V3": null,
+        "A3": null,
+        "W3": null,
+        "rW3": null,
+        "Wh3": null,
+        "rWh3": null,
+        "PF3": null,
+        "T": null
+    }
+    
+    for (const key in object) {
+        object[key] = deCodeNums[i]
+        i++;
+    }
+}
+
+const LetterDeCode = (el) => {
+    let num = 0;
+
+    switch (el) {
+        case "A":
+            num = 10;
+            break;
+        case "B":
+            num = 11;
+            break;
+        case "C":
+            num = 12;
+            break;
+        case "D":
+            num = 13;
+            break;
+        case "E":
+            num = 14;
+            break;
+        case "F":
+            num = 15;
+            break;
+    }
+
+    if (num === 0) {
+        num += Number(el);
+    }
+
+    return num;
+}
+
+const reverseDeCodeStr = (str) => {
+    str = str.slice(2, str.length);
+    let newStr = "";
+    for (let i = str.length - 1; i >= 0; i--) {
+        newStr += str[i];
+    }
+
+    return newStr;
+}
+
+const DeCoder = (element) => {
+    let bitNum = element;
+    let sum = 0;
+    bitNum = reverseDeCodeStr(bitNum);
+    for (let i = 0; i < bitNum.length; i++) {
+        const decodeNum = LetterDeCode(bitNum[i]);
+        sum += decodeNum * Math.pow(16, i);
+    }
+    // console.log(sum)
+    return sum;
+}
+
+BitDeCoder(bitData);
